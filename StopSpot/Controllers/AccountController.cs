@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using StopSpot.Data;
 using StopSpot.Models;
 using System.Linq;
@@ -78,5 +80,19 @@ namespace StopSpot.Controllers
             // If the model state is not valid, return to the registration page
             return View(account);
         }
+
+
+        // GET: Account/Logout
+        public IActionResult Logout()
+        {
+            // Sign out the user
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Redirect to the login page after logout
+            return RedirectToAction("Login", "Account");
+        }
+
+
+
     }
     }

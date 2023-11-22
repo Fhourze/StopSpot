@@ -16,3 +16,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Custom navbar class */
+.navbar-custom {
+    background-color: black; /* Set the background color */
+    color: white; /* Set text color */
+}
+
+/* Custom toggle button class */
+.custom-toggler {
+    border-color: white; /* Set the toggle button color */
+}
+
+/* Navbar link text color */
+.navbar-custom .nav-link {
+    color: white;
+}
+
+/* Optional: Adjust spacing and alignment */
+.navbar-custom .navbar-nav {
+    margin-right: auto; /* Move the navbar links to the right */
+}
+
+
