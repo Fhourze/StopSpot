@@ -21,7 +21,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <span class="navbar-text">Welcome, @User.Identity.Name.Split(" ")[0]</span>
+                            <span class="navbar-text">Welcome, @TempData["FirstName"]</span>
                         </li>
                         <li class="nav-item">
                             <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="form-inline">

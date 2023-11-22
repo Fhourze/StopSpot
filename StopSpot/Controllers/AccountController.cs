@@ -16,38 +16,42 @@ namespace StopSpot.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: Account/Login
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(AccountModel account)
+        public IActionResult Login(AccountModel loginModel)
         {
-            if (ModelState.IsValid)
-            {
+  
                 // Validate the user's credentials
-                AccountModel authenticatedAccount = _dbContext.GetAccountByEmailAndPassword(account.Email, account.Password);
+                AccountModel authenticatedAccount = _dbContext.GetAccountByEmailAndPassword(loginModel.Email, loginModel.Password);
 
                 if (authenticatedAccount != null)
                 {
-                    // Redirect to dashboard or perform other actions upon successful login
-                    return RedirectToAction("Dashboard");
+                // Perform any necessary actions upon successful login
+                // For instance, setting authentication cookies or user sessions
+
+                // Store user's first name in TempData to display in layout
+                TempData["FirstName"] = authenticatedAccount.FirstName;
+
+
+                // Redirect to a desired page upon successful login
+                return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     // Display login failure message
-                    ViewBag.ErrorMessage = "Invalid email or password";
-                    return View(account);
+                    ModelState.AddModelError(string.Empty, "Invalid email or password");
+                    return View(loginModel);
                 }
             }
 
-            // If the model state is not valid, return to the login page
-            return View(account);
-        }
+
+
 
         // GET: Account/Register
         public IActionResult Register()
