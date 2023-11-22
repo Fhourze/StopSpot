@@ -1,0 +1,40 @@
+﻿@model Booking;
+
+@{
+    ViewData["Title"] = "Booking";
+}
+
+<!DOCTYPE html>
+
+<h3>Booking</h3>
+
+<form asp-action="Index">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="BookingId" class="form-label">Booking ID</label>
+        <input asp-for="BookingId" class="form-control" disabled />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ParkingSpot" class="form-label"></label>
+        <select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="ParkingFrom" class="form-label"></label>
+            <input asp-for="ParkingFrom" class="form-control" placeholder="PARKING FROM">
+
+        </div>
+        <div class="col">
+            <label asp-for="ParkingUntil" class="form-label"></label>
+            <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL">
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col">
+            <label asp-for="Total" class="form-label"></label>
+            <input asp-for="Total" type="text" class="form-control" placeholder="TOTAL">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">PARK IT!</button>
+</form>
