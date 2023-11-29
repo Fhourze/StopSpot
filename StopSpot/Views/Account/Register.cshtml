@@ -41,10 +41,20 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.AccountType)
-        @Html.TextBoxFor(model => model.AccountType, new { @class = "form-control" })
+        @Html.LabelFor(model => model.AccountType, "Account Type")
+        <div class="radio">
+            <label>
+                @Html.RadioButtonFor(model => model.AccountType, "Driver", new { @class = "" }) Driver
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                @Html.RadioButtonFor(model => model.AccountType, "Owner", new { @class = "" }) Owner
+            </label>
+        </div>
         @Html.ValidationMessageFor(model => model.AccountType, "", new { @class = "text-danger" })
     </div>
+
 
     <button type="submit" class="btn btn-primary">Register</button>
 }
