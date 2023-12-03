@@ -17,7 +17,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+                <div class="navbar-nav ml-auto">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -38,10 +38,11 @@
                             <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
                         </li>
                     }
-                </ul>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Listing" asp-action="Index">Listing</a>
-                </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Listing" asp-action="Index">Listing</a>
+                    </li>
+                </div>
             </div>
         </nav>
     </header>
