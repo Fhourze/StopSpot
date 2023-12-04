@@ -41,15 +41,16 @@ namespace StopSpot.Data
                                 new Booking()
                                 {
                                     BookingId = 1,
-                                    ParkingSpot = "1",
+                                    ParkingSpot = "McDoParking",
                                     ParkingFrom = DateTime.Parse("2020-01-21"),
                                     ParkingUntil = DateTime.Parse("2020-01-22"),
                                     Total = 192
                                 }
 
                 );
+            modelBuilder.Entity<ListingModel>().HasData(
 
-                                new ListingModel()
+                    new ListingModel()
                                 {
                                     Id = 1,
                                     Name = "Test Motel",
