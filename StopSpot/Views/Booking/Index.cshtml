@@ -36,5 +36,59 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">PARK IT!</button>
-</form>
+        <button type="submit" class="btn btn-danger" id="bBooking">PARK IT!</button>
+
+    </form>
+    </div>
+    <div class="col">
+        <div class="row mb-3">
+                <img src="../img/BookingBackground.png" alt="Parking Spot Picture" id="parkingImage">
+                <p id="test"></p>
+                
+        </div>
+    </div>
+
+</div>
+    <script>
+        function imgChoiceFunction() {
+            var imageNum = document.getElementById("bookDropdown").value;
+            var imageFilename = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPicture))');
+            document.getElementById("parkingImage").src = "../img/" + imageNum + ".png";
+            //document.getElementById("parkingImage").src = "../img/" + imageFilename[imageNum - 1]; uncomment this when file upload finally works
+            document.getElementById("parkFrom").value = "";
+            document.getElementById("parkUntil").value = "";
+            document.getElementById("parkTotal").value = "";
+        }
+
+        function dateChoiceFunction() {
+            var spotNum = document.getElementById("bookDropdown").value;
+
+            var dateTilChoice = document.getElementById("parkUntil").value;
+            var dateFromChoice = document.getElementById("parkFrom").value;
+
+            var fromDate = Date.parse(dateFromChoice);
+            var toDate = Date.parse(dateTilChoice);
+
+            if (toDate > fromDate) {
+                var dateDiff = toDate - fromDate;
+                var parkHour = dateDiff / 3600000; //3600000 is 1 hour
+               
+                var spotPriceArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPrice))');
+
+                var spotPrice = spotPriceArray[spotNum-1];
+                var pricePerHour = spotPrice * parkHour;
+                
+                document.getElementById("parkTotal").value = pricePerHour;
+
+            } else {
+                document.getElementById("parkUntil").value = "";
+                document.getElementById("parkTotal").value = "";
+                alert("Ending date of booking must not precede the starting date. Try again or input the starting date first.");
+            }
+
+        }
+
+
+    </script>
+
+</body>

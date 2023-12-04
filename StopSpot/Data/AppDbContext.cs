@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StopSpot.Models;
 
 namespace StopSpot.Data
@@ -8,13 +7,8 @@ namespace StopSpot.Data
     {
         public DbSet <AccountModel> Accounts { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        //public DbSet<ParkingSpace> Parkings { get; set; }
+        public DbSet<ListingModel> ParkingLists { get; set; }
 
-
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -24,14 +18,6 @@ namespace StopSpot.Data
                 account.Email == email && account.Password == password);
         }
 
-<<<<<<< Updated upstream
-        /*public BookingModel GetBookingModel(Spots pSpots)
-        {
-            return Books.FirstOrDefault(book => book.ParkingSpot == pSpots);
-        }*/
-
-=======
->>>>>>> Stashed changes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -50,16 +36,12 @@ namespace StopSpot.Data
 
                 );
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             modelBuilder.Entity<Booking>().HasData(
 
                                 new Booking()
                                 {
                                     BookingId = 1,
-                                    ParkingSpot = Spots.McDoParking,
+                                    ParkingSpot = "1",
                                     ParkingFrom = DateTime.Parse("2020-01-21"),
                                     ParkingUntil = DateTime.Parse("2020-01-22"),
                                     Total = 192
@@ -67,8 +49,6 @@ namespace StopSpot.Data
 
                 );
 
-<<<<<<< Updated upstream
-=======
                                 new ListingModel()
                                 {
                                     Id = 1,
@@ -82,8 +62,6 @@ namespace StopSpot.Data
                                 }
                 );
 
-
->>>>>>> Stashed changes
         }
 
 
