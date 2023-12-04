@@ -3,17 +3,15 @@
 @{
     ViewData["Title"] = "Booking";
 }
+<link rel="stylesheet" href="~/css/bookingDesign.css" asp-append-version="true" />
 
 <!DOCTYPE html>
-
-<h3>Booking</h3>
-<body>
+<body class="bookingBody">
+<h1>Booking</h1>
+<div class="col">
+<div class="row mb-3">
 <form asp-action="Index">
     <div asp-validation-summary="All"></div>
-    <div class="mb-3">
-        <label asp-for="BookingId" class="form-label">Booking ID</label>
-        <input asp-for="BookingId" class="form-control" disabled />
-    </div>
     <div class="row mb-3">
         <!--<label asp-for="ParkingSpot" class="form-label"></label>-->
         <!--<select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>-->
@@ -43,6 +41,8 @@
 
     </form>
     </div>
+</div>
+
     <div class="col">
         <div class="row mb-3">
                 <img src="../img/BookingBackground.png" alt="Parking Spot Picture" id="parkingImage">
