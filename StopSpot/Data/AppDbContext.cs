@@ -6,6 +6,13 @@ namespace StopSpot.Data
     public class AppDbContext : DbContext
     {
         public DbSet <AccountModel> Accounts { get; set; }
+<<<<<<< Updated upstream
+=======
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<ListingModel> ParkingLists { get; set; }
+
+
+>>>>>>> Stashed changes
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -15,6 +22,10 @@ namespace StopSpot.Data
                 account.Email == email && account.Password == password);
         }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -33,7 +44,38 @@ namespace StopSpot.Data
 
                 );
 
+<<<<<<< Updated upstream
             
+=======
+            modelBuilder.Entity<Booking>().HasData(
+
+                                new Booking()
+                                {
+                                    BookingId = 1,
+                                    ParkingSpot = "1",
+                                    ParkingFrom = DateTime.Parse("2020-01-21"),
+                                    ParkingUntil = DateTime.Parse("2020-01-22"),
+                                    Total = 192
+                                }
+
+                );
+            modelBuilder.Entity<ListingModel>().HasData(
+
+                                new ListingModel()
+                                {
+                                    Id = 1,
+                                    Name = "Test Motel",
+                                    OwnerName = "TestOwner",
+                                    Picture = "Test",
+                                    Vehicles = "Test",
+                                    PricePerHour = 9,
+                                    OwnerNumber = "Test",
+                                    Availability = "true"
+                                }
+                );
+
+
+>>>>>>> Stashed changes
         }
     }
 }
