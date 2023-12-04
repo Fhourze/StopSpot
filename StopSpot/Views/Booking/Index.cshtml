@@ -14,9 +14,12 @@
         <label asp-for="BookingId" class="form-label">Booking ID</label>
         <input asp-for="BookingId" class="form-control" disabled />
     </div>
-    <div class="mb-3">
+    <div class="row mb-3">
+        <!--<label asp-for="ParkingSpot" class="form-label"></label>-->
+        <!--<select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>-->
         <label asp-for="ParkingSpot" class="form-label"></label>
-        <select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>
+        @Html.DropDownListFor(model => model.ParkingSpot, new SelectList(ViewBag.spots, "Id", "Name"),
+                 new { @class = "booking-dropdown", @onchange = "imgChoiceFunction()", @id = "bookDropdown" })
     </div>
     <div class="row mb-3">
         <div class="col">
