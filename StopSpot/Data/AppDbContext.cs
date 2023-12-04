@@ -11,6 +11,10 @@ namespace StopSpot.Data
         //public DbSet<ParkingSpace> Parkings { get; set; }
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -20,11 +24,14 @@ namespace StopSpot.Data
                 account.Email == email && account.Password == password);
         }
 
+<<<<<<< Updated upstream
         /*public BookingModel GetBookingModel(Spots pSpots)
         {
             return Books.FirstOrDefault(book => book.ParkingSpot == pSpots);
         }*/
 
+=======
+>>>>>>> Stashed changes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,6 +50,10 @@ namespace StopSpot.Data
 
                 );
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
             modelBuilder.Entity<Booking>().HasData(
 
                                 new Booking()
@@ -56,6 +67,23 @@ namespace StopSpot.Data
 
                 );
 
+<<<<<<< Updated upstream
+=======
+                                new ListingModel()
+                                {
+                                    Id = 1,
+                                    Name = "Test Motel",
+                                    OwnerName = "TestOwner",
+                                    Picture = "Test",
+                                    Vehicles = "Test",
+                                    PricePerHour = 9,
+                                    OwnerNumber = "Test",
+                                    Availability = "true"
+                                }
+                );
+
+
+>>>>>>> Stashed changes
         }
 
 
