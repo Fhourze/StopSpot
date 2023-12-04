@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StopSpot.Data;
 using StopSpot.Models;
+
 
 
 namespace StopSpot.Controllers
@@ -8,9 +11,11 @@ namespace StopSpot.Controllers
     public class ListingController : Controller
     {
         private readonly ListingDbContext _listdbContext;
-        public ListingController(ListingDbContext ListdbContext)
+        private readonly IWebHostEnvironment _environment;
+        public ListingController(ListingDbContext ListdbContext, IWebHostEnvironment environment)
         {
             _listdbContext = ListdbContext;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -27,6 +32,17 @@ namespace StopSpot.Controllers
         [HttpPost]
         public IActionResult AddListing(ListingModel newListing)
         {
+            string folder = "Listing/Images/";
+            string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + newListing.UploadedPhoto.FileName;
+            string filePath = Path.Combine(serverFolder, uniqueFileName);
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            {
+                newListing.UploadedPhoto.CopyTo(fileStream);
+            }
+            newListing.imagePath = folder + uniqueFileName;
+
+
             _listdbContext.ParkingLists.Add(newListing);
             _listdbContext.SaveChanges();
             return RedirectToAction("Index", _listdbContext.ParkingLists);
@@ -85,6 +101,44 @@ namespace StopSpot.Controllers
                 return RedirectToAction("Index");
             }
             return NotFound();
+        }
+
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile files)
+        {
+            if (files != null)
+            {
+                if (files.Length > 0)
+                {
+                    //Getting FileName
+                    var fileName = Path.GetFileName(files.FileName);
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                    var objfiles = new ListingModel()
+                    {
+
+                        //PicId = 0,
+                        //Name = newFileName,
+                        //FileType = fileExtension,
+                        //CreatedOn = DateTime.Now
+                    };
+
+                    using (var target = new MemoryStream())
+                    {
+                        files.CopyTo(target);
+                        objfiles.Picture = target.ToArray();
+                    }
+
+                    _listdbContext.ParkingLists.Add(objfiles);
+                    _listdbContext.SaveChanges();
+
+                }
+            }
+            return View();
         }
 
     }
