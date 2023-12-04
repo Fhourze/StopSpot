@@ -1,0 +1,66 @@
+﻿body {
+    font-family: 'League Gothic';
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+h1 {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 2.5vw;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.form-label {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 2.5vw;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background-color: rgb(221, 221, 221, 0.75);
+    padding: 60px 100px;
+}
+
+#bBooking {
+    border: #242024;
+    color: #ffffff;
+    background: #BF0000;
+    padding: 7px 64px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.buttonText {
+}
+
+#bBooking:hover {
+    background-color: #242024;
+    color: #E30220;
+    border-color: #242024;
+}
+/* start of booking page-specific css */
+.bookingBody {
+    background-image: url('../img/BookingBackground.png');
+}
+
+.booking-dropdown {
+    margin: 11px;
+    padding: 5px;
+    width: 500px;
+}
+/* end of booking page-specific css */
