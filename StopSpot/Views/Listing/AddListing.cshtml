@@ -1,0 +1,45 @@
+﻿﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ListingModel;
+
+<h1>Add Parking Spot</h1>
+
+<form action="AddListing" method="post">
+    <div class="form-group">
+        <label asp-for="Id">Id</label>
+        <input asp-for="Id" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="OwnerName">Owner Name</label>
+        <input asp-for="OwnerName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Picture">Picture</label>
+        <input asp-for="Picture" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vehicles">Vehicles</label>
+        <input asp-for="Vehicles" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PricePerHour">Price Per Hour</label>
+        <input asp-for="PricePerHour" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="OwnerNumber">Owner Number</label>
+        <input asp-for="OwnerNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Availability">Availability</label>
+        <input asp-for="Availability" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" onclick="history.back()" class="btn">Cancel</button>
+</form>

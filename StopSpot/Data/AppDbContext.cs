@@ -6,13 +6,9 @@ namespace StopSpot.Data
     public class AppDbContext : DbContext
     {
         public DbSet <AccountModel> Accounts { get; set; }
-<<<<<<< Updated upstream
-=======
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<ListingModel> ParkingLists { get; set; }
 
-
->>>>>>> Stashed changes
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -22,10 +18,6 @@ namespace StopSpot.Data
                 account.Email == email && account.Password == password);
         }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,9 +36,6 @@ namespace StopSpot.Data
 
                 );
 
-<<<<<<< Updated upstream
-            
-=======
             modelBuilder.Entity<Booking>().HasData(
 
                                 new Booking()
@@ -74,8 +63,6 @@ namespace StopSpot.Data
                                 }
                 );
 
-
->>>>>>> Stashed changes
         }
     }
 }
