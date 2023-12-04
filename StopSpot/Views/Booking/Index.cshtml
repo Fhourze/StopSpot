@@ -1,59 +1,55 @@
 ﻿@model Booking;
-
 @{
     ViewData["Title"] = "Booking";
 }
 <link rel="stylesheet" href="~/css/bookingDesign.css" asp-append-version="true" />
-
 <!DOCTYPE html>
 <body class="bookingBody">
-<h1>Booking</h1>
-<div class="col">
-<div class="row mb-3">
-<form asp-action="Index">
-    <div asp-validation-summary="All"></div>
-    <div class="row mb-3">
-        <!--<label asp-for="ParkingSpot" class="form-label"></label>-->
-        <!--<select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>-->
-        <label asp-for="ParkingSpot" class="form-label"></label>
-        @Html.DropDownListFor(model => model.ParkingSpot, new SelectList(ViewBag.spots, "Id", "Name"),
-                 new { @class = "booking-dropdown", @onchange = "imgChoiceFunction()", @id = "bookDropdown" })
-    </div>
-    <div class="row mb-3">
+    <h1>Booking</h1>
+    <div class="row">
         <div class="col">
-            <label asp-for="ParkingFrom" class="form-label"></label>
-            <input asp-for="ParkingFrom" class="form-control" placeholder="PARKING FROM">
+            <form asp-action="">
+                <div asp-validation-summary="All"></div>
+                <!--<div class="mb-3">
+                    <label asp-for="BookingId" class="form-label">Booking ID</label>
+                    <input asp-for="BookingId" class="form-control" />
+                </div>-->
+                <div class="row mb-3">
+                    <!--<label asp-for="ParkingSpot" class="form-label"></label>-->
+                    <!--<select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>-->
+                    <label asp-for="ParkingSpot" class="form-label"></label>
+                    @Html.DropDownListFor(model => model.ParkingSpot, new SelectList(ViewBag.spots, "Id", "Name"),
+                             new { @class = "booking-dropdown", @onchange = "imgChoiceFunction()", @id = "bookDropdown" })
+                    @Html.Hidden("myVar", 0);
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label asp-for="ParkingFrom" class="form-label"></label>
+                        <input asp-for="ParkingFrom" class="form-control" placeholder="PARKING FROM" id="parkFrom">
+                    </div>
 
+                    <div class="col">
+                        <label asp-for="ParkingUntil" class="form-label"></label>
+                        <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL" id="parkUntil" onchange="dateChoiceFunction()">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col">
+                        <label asp-for="Total" class="form-label"></label>
+                        <input asp-for="Total" type="number" class="form-control" placeholder="TOTAL" id="parkTotal" readonly>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger" id="bBooking">PARK IT!</button>
+            </form>
         </div>
         <div class="col">
-            <label asp-for="ParkingUntil" class="form-label"></label>
-            <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL">
-        </div>
-    </div>
-    <div class="mb-3">
-        <div class="col">
-            <label asp-for="Total" class="form-label"></label>
-            <input asp-for="Total" type="text" class="form-control" placeholder="TOTAL">
-        </div>
-    </div>
-
-        <button type="submit" class="btn btn-danger" id="bBooking">PARK IT!</button>
-
-    </form>
-    </div>
-</div>
-
-    <div class="col">
-        <div class="row mb-3">
+            <div class="row mb-3">
                 <img src="../img/BookingBackground.png" alt="Parking Spot Picture" id="parkingImage">
                 <p id="test"></p>
-                
+
+            </div>
         </div>
     </div>
-
-</div>
-</body>
-
     <script>
         function imgChoiceFunction() {
             var imageNum = document.getElementById("bookDropdown").value;
@@ -64,35 +60,26 @@
             document.getElementById("parkUntil").value = "";
             document.getElementById("parkTotal").value = "";
         }
-
         function dateChoiceFunction() {
             var spotNum = document.getElementById("bookDropdown").value;
-
             var dateTilChoice = document.getElementById("parkUntil").value;
             var dateFromChoice = document.getElementById("parkFrom").value;
-
             var fromDate = Date.parse(dateFromChoice);
             var toDate = Date.parse(dateTilChoice);
-
             if (toDate > fromDate) {
                 var dateDiff = toDate - fromDate;
                 var parkHour = dateDiff / 3600000; //3600000 is 1 hour
-               
+
                 var spotPriceArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPrice))');
-
-                var spotPrice = spotPriceArray[spotNum-1];
+                var spotPrice = spotPriceArray[spotNum - 1];
                 var pricePerHour = spotPrice * parkHour;
-                
-                document.getElementById("parkTotal").value = pricePerHour;
 
+                document.getElementById("parkTotal").value = pricePerHour;
             } else {
                 document.getElementById("parkUntil").value = "";
                 document.getElementById("parkTotal").value = "";
                 alert("Ending date of booking must not precede the starting date. Try again or input the starting date first.");
             }
-
         }
-
-
     </script>
-
+</body>
