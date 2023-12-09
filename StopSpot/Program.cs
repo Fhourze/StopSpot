@@ -20,8 +20,6 @@ if (!app.Environment.IsDevelopment())
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
 var contexts = app.Services.CreateScope().ServiceProvider.GetRequiredService<ListingDbContext>();
-context.Database.EnsureCreated();
-contexts.Database.EnsureCreated();
 
 app.UseStaticFiles();
 

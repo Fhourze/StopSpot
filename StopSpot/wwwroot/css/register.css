@@ -1,9 +1,11 @@
-﻿body {
-    background-image: url('../img/bg.jpg');
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('../img/eclipse.jpg') no-repeat center center fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
     margin: 0;
 }
 

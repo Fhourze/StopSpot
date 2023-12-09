@@ -1,17 +1,12 @@
-﻿body {
-    background-image: url('../img/bg.jpg');
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('../img/blackground.jpg') no-repeat center center fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.3);
-    z-index: -1;
+    margin: 0;
 }
 
 .d-flex {
@@ -25,6 +20,7 @@
 .card-body {
     background-color: #242024;
     color: #E30220;
+    font-size: 16px; 
 }
 
 .card {
@@ -63,17 +59,21 @@
     color: #fff;
 }
 
-
-
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
     .card {
         width: 40%;
     }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width: 600px) {
     .card {
         width: 90%;
     }
 }
 
+.navbar-text.wc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
