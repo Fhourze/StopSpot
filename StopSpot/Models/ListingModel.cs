@@ -6,12 +6,10 @@ namespace StopSpot.Models
 {
     public class ListingModel
     {
-        
+        [Key]
         public int? Id { get; set; }
         public string? Name { get; set; }
         public string? OwnerName { get; set; }
-        public int? PicId { get; set; }
-        public byte[]? Picture { get; set; }
         public string? Vehicles { get; set; }
         public string? PricePerHour { get; set; }
         public string? OwnerNumber { get; set; }
@@ -21,7 +19,7 @@ namespace StopSpot.Models
         public IFormFile? UploadedPhoto { get; set; }
 
         [Display(Name = "ParkingPic")]
-        public string? imagePath {  get; set; }
+        public string? Picture {  get; set; }
 
     }
 }

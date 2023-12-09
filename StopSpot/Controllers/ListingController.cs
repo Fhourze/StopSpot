@@ -40,7 +40,7 @@ namespace StopSpot.Controllers
             {
                 newListing.UploadedPhoto.CopyTo(fileStream);
             }
-            newListing.imagePath = folder + uniqueFileName;
+            newListing.Picture = folder + uniqueFileName;
 
 
             _listdbContext.ParkingLists.Add(newListing);
@@ -64,6 +64,16 @@ namespace StopSpot.Controllers
             ListingModel? listingModel = _listdbContext.ParkingLists.FirstOrDefault(st => st.Id == listingModelChange.Id);
             if (listingModel != null)
             {
+                string folder = "Listing/Images/";
+                string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+                string uniqueFileName = Guid.NewGuid().ToString() + "___" + listingModelChange.UploadedPhoto.FileName;
+                string filePath = Path.Combine(serverFolder, uniqueFileName);
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                {
+                    listingModelChange.UploadedPhoto.CopyTo(fileStream);
+                }
+                listingModelChange.Picture = folder + uniqueFileName;
+
                 listingModel.Name = listingModelChange.Name;
                 listingModel.OwnerName = listingModelChange.OwnerName;
                 listingModel.Picture = listingModelChange.Picture;
@@ -104,8 +114,8 @@ namespace StopSpot.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult Upload(IFormFile files)
+
+       /* public IActionResult Upload(IFormFile files)
         {
             if (files != null)
             {
@@ -139,7 +149,7 @@ namespace StopSpot.Controllers
                 }
             }
             return View();
-        }
+        }*/
 
     }
 }

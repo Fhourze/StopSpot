@@ -22,8 +22,6 @@ namespace StopSpot.Data
             Id = 1,
             Name = "Test",
             OwnerName = "Test",
-            PicId = 0,
-            Picture = new byte[] {},
             Vehicles = "Test",
             PricePerHour = "Test",
             OwnerNumber = "Test",

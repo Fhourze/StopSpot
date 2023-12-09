@@ -32,13 +32,12 @@
                     <td>@listingModel.Id</td>
                     <td> @listingModel.Name</td>
                     <td>@listingModel.OwnerName</td>
-                    <td><img src="/@listingModel.imagePath" class="img-thumbnail" /></td>
+                    <td><img src="/@listingModel.Picture" class="img-thumbnail" /></td>
                     <td>@listingModel.Vehicles</td>
                     <td>@listingModel.PricePerHour</td>
                     <td>@listingModel.OwnerNumber</td>
                     <td>@listingModel.Availability</td>
                     <td>
-                        <a asp-controller="Listing" asp-action="EditListingSpot" asp-route-id="@listingModel.Id"><i class="bi bi-pen" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="edit">Edit</i></a>
                         <a asp-controller="Listing" asp-action="DeleteListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete">Delete</i></a>
                     </td>
                 </tr>
