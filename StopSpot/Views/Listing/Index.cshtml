@@ -10,40 +10,41 @@
 @model IEnumerable<ListingModel>;
 
 
-    <div class="container-fluid">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">OwnerName</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Vehicles</th>
+<div class="container-fluid">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">OwnerName</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Vehicles</th>
                 <th scope="col">Price Per Hour</th>
                 <th scope="col">Owner Number</th>
                 <th scope="col">Availability</th>
                 <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var listingModel in Model)
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listingModel in Model)
             {
-                <tr>
-                    <td style="border-left: 4px solid green;" : "border-left: 4px solid red;"> @listingModel.Name</td>
+                <tr style="border: 4px solid green;" : "border: 4px solid red;">
+                    <td>@listingModel.Id</td>
+                    <td> @listingModel.Name</td>
                     <td>@listingModel.OwnerName</td>
-                    <td>@listingModel.Picture</td>
+                    <td><img src="/@listingModel.Picture" class="img-thumbnail" /></td>
                     <td>@listingModel.Vehicles</td>
                     <td>@listingModel.PricePerHour</td>
                     <td>@listingModel.OwnerNumber</td>
                     <td>@listingModel.Availability</td>
                     <td>
-                        <a asp-controller="Listing" asp-action="" asp-route-id="@listingModel.Id"><i class="bi bi-pen" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="edit"></i></a>
-                        <a asp-controller="Listing" asp-action="" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete"></i></a>
+                        <a asp-controller="Listing" asp-action="DeleteListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete">Delete</i></a>
                     </td>
                 </tr>
             }
-            </tbody>
-        </table>
+        </tbody>
+    </table>
     <a asp-controller="Listing" asp-action="AddListing">
         <button class="btn btn-outline-primary bi bi-plus-circle" style="margin-left: 12px; margin-bottom: 10px;"> Add new Parking Spot</button>
     </a>
-    </div>
+</div>

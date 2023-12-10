@@ -44,7 +44,7 @@
         </div>
         <div class="col">
             <div class="row mb-3">
-                <img src="../img/BookingBackground.png" alt="Parking Spot Picture" id="parkingImage">
+                <img src="../img/ParkingPlaceholder.png" alt="Parking Spot Picture" id="parkingImage">
                 <p id="test"></p>
 
             </div>
@@ -52,34 +52,94 @@
     </div>
     <script>
         function imgChoiceFunction() {
-            var imageNum = document.getElementById("bookDropdown").value;
+            var imageNum = document.getElementById("bookDropdown").selectedIndex;
             var imageFilename = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPicture))');
-            document.getElementById("parkingImage").src = "../img/" + imageNum + ".png";
-            //document.getElementById("parkingImage").src = "../img/" + imageFilename[imageNum - 1]; uncomment this when file upload finally works
+            //document.getElementById("parkingImage").src = "../img" + imageNum + ".png";
+            document.getElementById("parkingImage").src = "../" + imageFilename[imageNum]; //uncomment this when file upload finally works
             document.getElementById("parkFrom").value = "";
             document.getElementById("parkUntil").value = "";
             document.getElementById("parkTotal").value = "";
+
         }
         function dateChoiceFunction() {
-            var spotNum = document.getElementById("bookDropdown").value;
+            var spotNum = document.getElementById("bookDropdown").selectedIndex;
+            var spotNumVal = document.getElementById("bookDropdown").value;
+
             var dateTilChoice = document.getElementById("parkUntil").value;
             var dateFromChoice = document.getElementById("parkFrom").value;
+
             var fromDate = Date.parse(dateFromChoice);
             var toDate = Date.parse(dateTilChoice);
+            var bookRange = [];
+
+            var bookFromArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.bookFrom))');
+            var bookUntilArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.bookUntil))');
+
+            var bookedDatabase = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.bookedSpots))');
+
+            var parsedFrom = parseArray(bookFromArray);
+            var parsedUntil = parseArray(bookUntilArray);
+
             if (toDate > fromDate) {
-                var dateDiff = toDate - fromDate;
-                var parkHour = dateDiff / 3600000; //3600000 is 1 hour
 
-                var spotPriceArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPrice))');
-                var spotPrice = spotPriceArray[spotNum - 1];
-                var pricePerHour = spotPrice * parkHour;
+                var overlapCheckerNum = 0;
+                for (var i = fromDate; i <= toDate; i++) {
+                    bookRange.push(i);
+                }
 
-                document.getElementById("parkTotal").value = pricePerHour;
+                //// never modify the for loop below
+                for (var j = 0; j < parsedFrom.length; j++) {
+                    //for (var k = parsedFrom[j]; k <= parsedUntil[j]; k++) {
+                        //unavailableRange.push(k); <----- cause of the problem. Possible solutions; 1. Map(), 2. try making a function and call that (gets rid of nested loop)
+
+                    //S}
+                    //bookedDatabaseRange.push(getRange(parsedFrom[j], parsedUntil[j]));
+                    //unavailableRange = [];
+                    var overlapChecker = bookRange.filter(function (item) {
+                        return (item >= parsedFrom[j] && item <= parsedUntil[j]);
+                    });
+
+                    overlapCheckerNum = overlapCheckerNum + overlapChecker.length
+
+                }
+               
+                if (overlapCheckerNum == 0) {
+                    var dateDiff = toDate - fromDate;
+                    var parkHour = dateDiff / 3600000; //3600000 is 1 hour
+
+                    var spotPriceArray = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPrice))');
+                    var spotPrice = spotPriceArray[spotNum];
+                    var pricePerHour = spotPrice * parkHour;
+
+                    document.getElementById("parkTotal").value = pricePerHour;
+                    //document.getElementById("test").innerHTML = "";
+                } else {
+                    document.getElementById("parkUntil").value = "";
+                    document.getElementById("parkFrom").value = "";
+                    alert("Invalid time as it overlaps with an already booked time");
+                    document.getElementById("parkTotal").value = "";
+                    overlapCheckerNum = 0;
+                }
+                //document.getElementById("test").innerHTML = tabletest[0];//bookedDatabase[0];//overlapCheckerNum;//bookRange[0];////rangelist[rangelist.length-1]
             } else {
                 document.getElementById("parkUntil").value = "";
                 document.getElementById("parkTotal").value = "";
                 alert("Ending date of booking must not precede the starting date. Try again or input the starting date first.");
             }
+
         }
+
+        function parseArray(arrayToBeParsed){
+            var parsedArray = [];
+            for (var i = 0; i < arrayToBeParsed.length; i++) {
+                var parsedDate = Date.parse(arrayToBeParsed[i]);
+                parsedArray.push(parsedDate);
+            }
+            
+            return parsedArray;
+        }
+
+
+
     </script>
 </body>

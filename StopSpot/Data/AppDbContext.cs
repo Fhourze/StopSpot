@@ -57,7 +57,7 @@ namespace StopSpot.Data
                                     OwnerName = "TestOwner",
                                     Picture = "Test",
                                     Vehicles = "Test",
-                                    PricePerHour = 9,
+                                    PricePerHour = "Test",
                                     OwnerNumber = "Test",
                                     Availability = "true"
                                 }

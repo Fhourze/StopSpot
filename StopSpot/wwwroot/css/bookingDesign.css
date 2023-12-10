@@ -48,6 +48,12 @@ h1 {
 .buttonText {
 }
 
+#parkingImage {
+    width: 2000px;
+    height: 400px;
+    border-color: #242024;
+}
+
 #bBooking:hover {
     background-color: #242024;
     color: #E30220;

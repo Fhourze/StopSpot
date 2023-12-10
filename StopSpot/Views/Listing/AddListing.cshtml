@@ -7,11 +7,11 @@
 
 <h1>Add Parking Spot</h1>
 
-<form action="AddListing" method="post">
-    <div class="form-group">
+<form action="AddListing" method="post" enctype="multipart/form-data">
+    <!--<div class="form-group">
         <label asp-for="Id">Id</label>
         <input asp-for="Id" class="form-control" />
-    </div>
+    </div>-->
     <div class="form-group">
         <label asp-for="Name">Name</label>
         <input asp-for="Name" class="form-control" />
@@ -20,9 +20,10 @@
         <label asp-for="OwnerName">Owner Name</label>
         <input asp-for="OwnerName" class="form-control" />
     </div>
+
     <div class="form-group">
-        <label asp-for="Picture">Picture</label>
-        <input asp-for="Picture" class="form-control" />
+        <label asp-for="UploadedPhoto">Picture</label>
+        <input asp-for="UploadedPhoto" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Vehicles">Vehicles</label>
