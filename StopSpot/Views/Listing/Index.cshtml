@@ -1,0 +1,50 @@
+﻿@using static StopSpot.Models.ListingModel
+@using StopSpot.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "ParkingSpotList";
+    ViewBag.PageTitle = "Parking Spot List";
+}
+@model IEnumerable<ListingModel>;
+
+
+    <div class="container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">OwnerName</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Vehicles</th>
+                <th scope="col">Price Per Hour</th>
+                <th scope="col">Owner Number</th>
+                <th scope="col">Availability</th>
+                <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var listingModel in Model)
+            {
+                <tr style="border: 4px solid green;" : "border: 4px solid red;">
+                    <td>@listingModel.Id</td>
+                    <td> @listingModel.Name</td>
+                    <td>@listingModel.OwnerName</td>
+                    <td><img src="/@listingModel.Picture" class="img-thumbnail" /></td>
+                    <td>@listingModel.Vehicles</td>
+                    <td>@listingModel.PricePerHour</td>
+                    <td>@listingModel.OwnerNumber</td>
+                    <td>@listingModel.Availability</td>
+                    <td>
+                        <a asp-controller="Listing" asp-action="DeleteListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete">Delete</i></a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    <a asp-controller="Listing" asp-action="AddListing">
+        <button class="btn btn-outline-primary bi bi-plus-circle" style="margin-left: 12px; margin-bottom: 10px;"> Add new Parking Spot</button>
+    </a>
+    </div>

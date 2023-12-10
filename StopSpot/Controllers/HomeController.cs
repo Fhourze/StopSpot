@@ -23,6 +23,16 @@ namespace StopSpot.Controllers
             return View();
         }
 
+        public IActionResult BookParking()
+        {
+            return View();
+        }
+
+        public IActionResult ListingModel()
+        {
+            return View();
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
