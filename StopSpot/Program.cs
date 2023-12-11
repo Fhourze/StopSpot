@@ -10,6 +10,14 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddDbContext<ListingDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+
+
+
+
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
-var contexts = app.Services.CreateScope().ServiceProvider.GetRequiredService<ListingDbContext>();
+context.Database.EnsureCreated();
 
 app.UseStaticFiles();
 
@@ -29,6 +37,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

@@ -6,7 +6,6 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <span class="navbar-text wc">Welcome, @TempData["FirstName"]</span>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewData["Title"]</title>
@@ -20,28 +19,28 @@
             <div class="card text-center mb-3 card-custom" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-car"></i></h5>
-                <a href="#" class="btn btn-primary">Book Parking</a>
+                <a href="@Url.Action("Index", "Booking")" class="btn btn-primary">Book Parking</a>
                 </div>
             </div>
 
             <div class="card text-center mb-3 card-custom" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-list"></i></h5>
-                <a href="#" class="btn btn-primary">List Parking</a>
+                <a href="@Url.Action("Index", "Listing")" class="btn btn-primary">List Parking</a>
                 </div>
             </div>
                 
             <div class="card text-center mb-3 card-custom" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-circle"></i></h5>
-                <a href="#" class="btn btn-primary">Account</a>
+                <a href="@Url.Action("Edit", "Account")" class="btn btn-primary">Account</a>
                 </div>
             </div>
 
             <div class="card text-center mb-3 card-custom" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-sign-out-alt"></i></h5>
-                    <a href="#" class="btn btn-primary">Logout</a>
+                <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>

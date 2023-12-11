@@ -11,6 +11,7 @@ body {
 
 html {
   font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -31,7 +32,7 @@ body {
 /* Adjust the logo size in the navbar */
 .navbar-brand img {
     max-width: auto; /* Change this value to your desired maximum width */
-    height: 100px; /* Ensures the aspect ratio is maintained */
+    height: 50px; /* Ensures the aspect ratio is maintained */
     /* You can also add additional styles like margin, padding, etc. here */
 }
 

@@ -10,9 +10,9 @@ namespace StopSpot.Controllers
 {
     public class ListingController : Controller
     {
-        private readonly ListingDbContext _listdbContext;
+        private readonly AppDbContext _listdbContext;
         private readonly IWebHostEnvironment _environment;
-        public ListingController(ListingDbContext ListdbContext, IWebHostEnvironment environment)
+        public ListingController(AppDbContext ListdbContext, IWebHostEnvironment environment)
         {
             _listdbContext = ListdbContext;
             _environment = environment;

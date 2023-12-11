@@ -5,8 +5,12 @@
 }
 @model ListingModel;
 
+<head>
+<link rel="stylesheet" href="~/css/AddListing.css">
+</head>
 <h1>Add Parking Spot</h1>
 
+<body>
 <form action="AddListing" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name">Name</label>
@@ -40,3 +44,4 @@
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="button" onclick="history.back()" class="btn">Cancel</button>
 </form>
+</body>

@@ -5,35 +5,21 @@ namespace StopSpot.Data
 {
     public class AppDbContext : DbContext
     {
-        public DbSet <AccountModel> Accounts { get; set; }
+        public DbSet<AccountModel> Accounts { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<ListingModel> ParkingLists { get; set; }   
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public AccountModel GetAccountByEmailAndPassword(string email, string password)
         {
-            return Accounts.FirstOrDefault(account =>
-                account.Email == email && account.Password == password);
-        }
 
+            return Accounts.FirstOrDefault(a => a.Email == email && a.Password == password);
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<AccountModel>().HasData(
-
-                                new AccountModel()
-                                {
-                                    AccountId = 1,
-                                    FirstName = "Test",
-                                    LastName = "Test",
-                                    Email = "Test",
-                                    PhoneNumber = "Test",
-                                    Password = "Test",
-                                    AccountType = "Test",
-                                }
-
-                );
-
-            
+            base.OnModelCreating(modelBuilder); 
         }
     }
+
 }
