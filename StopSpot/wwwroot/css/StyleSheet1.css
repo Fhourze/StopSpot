@@ -1,0 +1,29 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.ListingBody {
+    background-image: url('../img/BookingBackground.png');
+    font-family: 'League Gothic' !important;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.table {
+    width: 80%;
+    color: white;
+}
+
+#bListing:hover {
+    background-color: #242024;
+    color: #E30220;
+    border-color: #242024;
+}

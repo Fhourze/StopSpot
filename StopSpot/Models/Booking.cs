@@ -2,10 +2,7 @@
 
 namespace StopSpot.Models
 {
-    /*public enum Spots
-    {
-        McDoParking, AssistantProfessor, AssociateProfessor, Professor
-    }*/
+
     public class Booking
     {
         [Key]
@@ -27,7 +24,7 @@ namespace StopSpot.Models
 
         [Required]
         public int Total { get; set; }
-        
+
 
     }
 }

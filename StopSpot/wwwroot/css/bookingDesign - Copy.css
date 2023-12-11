@@ -1,4 +1,4 @@
-body {
+﻿body {
     font-family: 'Roboto', sans-serif;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -33,8 +33,6 @@ h1 {
     padding: 60px 100px;
 }
 
-
-
 #bBooking {
     border: #242024;
     color: #ffffff;
@@ -45,9 +43,7 @@ h1 {
     display: inline-block;
     margin: 4px 2px;
     cursor: pointer;
-
 }
-
 
 .buttonText {
 }
@@ -63,8 +59,6 @@ h1 {
     color: #E30220;
     border-color: #242024;
 }
-
-
 /* start of booking page-specific css */
 .bookingBody {
     background-image: url('../img/BookingBackground.png');
@@ -76,7 +70,6 @@ h1 {
     padding: 5px;
     width: 500px;
 }
-
 /* end of booking page-specific css */
 
 

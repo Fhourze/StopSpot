@@ -14,69 +14,111 @@ namespace StopSpot.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: Account/Login
         public IActionResult Login()
         {
             return View();
         }
 
-        // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(AccountModel account)
+        public IActionResult Login(AccountModel loginInfo)
         {
-            if (ModelState.IsValid)
-            {
-                // Validate the user's credentials
-                AccountModel authenticatedAccount = _dbContext.GetAccountByEmailAndPassword(account.Email, account.Password);
+            
+                var user = _dbContext.Accounts.FirstOrDefault(u => u.Email == loginInfo.Email && u.Password == loginInfo.Password);
 
-                if (authenticatedAccount != null)
+                if (user != null)
                 {
-                    // Redirect to dashboard or perform other actions upon successful login
-                    return RedirectToAction("Dashboard");
+                    // Successful login logic (e.g., setting up a session)
+                    ViewBag.SuccessMessage = "Login successful!";
+
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    // Display login failure message
-                    ViewBag.ErrorMessage = "Invalid email or password";
-                    return View(account);
+                    ViewBag.ErrorMessage = "Invalid email or password.";
+                    return View(loginInfo);
                 }
-            }
+            
 
-            // If the model state is not valid, return to the login page
-            return View(account);
+
+            return View(loginInfo);
         }
 
-        // GET: Account/Register
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: Account/Register
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(AccountModel account)
+        public IActionResult Register(AccountModel registerInfo)
         {
             if (ModelState.IsValid)
             {
-                // Check if the email is already registered
-                if (_dbContext.Accounts.Any(a => a.Email == account.Email))
-                {
-                    ModelState.AddModelError("Email", "Email is already registered.");
-                    return View(account);
-                }
-
-                // Save the new account to the database
-                _dbContext.Accounts.Add(account);
+                _dbContext.Accounts.Add(registerInfo);
                 _dbContext.SaveChanges();
-
-                // Redirect to login page after successful registration
                 return RedirectToAction("Login");
             }
 
-            // If the model state is not valid, return to the registration page
-            return View(account);
+            return View(registerInfo);
+        }
+
+        public IActionResult Edit()
+        {
+            // Retrieve the last account from the database
+            var lastAccount = _dbContext.Accounts.OrderByDescending(a => a.AccountId).FirstOrDefault();
+
+            if (lastAccount == null)
+            {
+                ViewBag.ErrorMessage = "No accounts found.";
+                return View();
+            }
+
+            return View(lastAccount);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AccountModel editedAccount)
+        {
+            if (ModelState.IsValid)
+            {
+                // Update the account in the database
+                _dbContext.Accounts.Update(editedAccount);
+                _dbContext.SaveChanges();
+                ViewBag.SuccessMessage = "Account updated successfully!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(editedAccount);
+        }
+
+
+
+
+
+
+        public IActionResult Logout()
+        {
+            // Perform logout actions (if needed)
+            return RedirectToAction("Login");
+        }
+
+
+        public IActionResult DeleteLastAccount()
+        {
+            var lastAccount = _dbContext.Accounts.OrderByDescending(a => a.AccountId).FirstOrDefault();
+
+            if (lastAccount != null)
+            {
+                _dbContext.Accounts.Remove(lastAccount);
+                _dbContext.SaveChanges();
+                ViewBag.SuccessMessage = "Last account deleted successfully!";
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "No accounts found to delete.";
+            }
+
+            return RedirectToAction("Login", "Account");
         }
     }
-    }
+}

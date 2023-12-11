@@ -1,5 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('../img/eclipse.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
 html {
   font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -16,3 +28,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Adjust the logo size in the navbar */
+.navbar-brand img {
+    max-width: auto; /* Change this value to your desired maximum width */
+    height: 50px; /* Ensures the aspect ratio is maintained */
+    /* You can also add additional styles like margin, padding, etc. here */
+}
+
+.navbar-custom {
+    background-color: black;
+    height: 80px;
+    /* You can add other styles as needed */
+}
+
+    .navbar-custom .nav-link {
+        color: white;
+        /* You can add other styles as needed */
+    }
+

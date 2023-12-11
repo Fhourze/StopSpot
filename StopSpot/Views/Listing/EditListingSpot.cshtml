@@ -5,13 +5,9 @@
 }
 @model ListingModel;
 
-<head>
-<link rel="stylesheet" href="~/css/AddListing.css">
-</head>
-<h1>Add Parking Spot</h1>
+<h1>Edit Parking Spot</h1>
 
-<body>
-<form action="AddListing" method="post" enctype="multipart/form-data">
+<form action="EditListingSpot" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name">Name</label>
         <input asp-for="Name" class="form-control" />
@@ -20,10 +16,9 @@
         <label asp-for="OwnerName">Owner Name</label>
         <input asp-for="OwnerName" class="form-control" />
     </div>
-
     <div class="form-group">
-        <label asp-for="UploadedPhoto">Picture</label>
-        <input asp-for="UploadedPhoto" class="form-control" />
+        <label asp-for="Picture">Picture</label>
+        <input asp-for="Picture" name="files" type="file" action="Index" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Vehicles">Vehicles</label>
@@ -41,7 +36,6 @@
         <label asp-for="Availability">Availability</label>
         <input asp-for="Availability" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button asp-action="EditListingSpot">Save Changes</button>
     <button type="button" onclick="history.back()" class="btn">Cancel</button>
 </form>
-</body>
