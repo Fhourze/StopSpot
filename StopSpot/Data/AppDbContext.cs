@@ -9,6 +9,7 @@ namespace StopSpot.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<ListingModel> ParkingLists { get; set; }   
 
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public AccountModel GetAccountByEmailAndPassword(string email, string password)

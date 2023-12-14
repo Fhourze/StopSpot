@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StopSpot.Data;
 using StopSpot.Models;
+
 namespace StopSpot.Controllers
 {
     public class BookingController : Controller

@@ -1,14 +1,18 @@
 ﻿@model Booking;
+
 @{
     ViewData["Title"] = "Booking";
 }
+
 <link rel="stylesheet" href="~/css/bookingDesign.css" asp-append-version="true" />
+
 <!DOCTYPE html>
 <body class="bookingBody">
     <h1>Booking</h1>
+
     <div class="row">
         <div class="col">
-            <form asp-action="">
+            <form asp-action="Index" method="post">
                 <div asp-validation-summary="All"></div>
                 <!--<div class="mb-3">
                     <label asp-for="BookingId" class="form-label">Booking ID</label>
@@ -21,6 +25,7 @@
                     @Html.DropDownListFor(model => model.ParkingSpot, new SelectList(ViewBag.spots, "Id", "Name"),
                     new { @class = "booking-dropdown", @onchange = "imgChoiceFunction()", @id = "bookDropdown" })
                     @Html.Hidden("myVar", 0);
+
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -28,6 +33,7 @@
                         <input asp-for="ParkingFrom" class="form-control" placeholder="PARKING FROM" id="parkFrom">
                     </div>
 
+            </div>
                     <div class="col">
                         <label asp-for="ParkingUntil" class="form-label"></label>
                         <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL" id="parkUntil" onchange="dateChoiceFunction()">
@@ -39,7 +45,9 @@
                         <input asp-for="Total" type="number" class="form-control" placeholder="TOTAL" id="parkTotal" readonly>
                     </div>
                 </div>
+
                 <button type="submit" class="btn btn-danger" id="bBooking">PARK IT!</button>
+
             </form>
         </div>
         <div class="col">
@@ -49,10 +57,10 @@
 
             </div>
         </div>
+
     </div>
     <script>
         function imgChoiceFunction() {
-            var imageNum = document.getElementById("bookDropdown").selectedIndex;
             var imageFilename = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPicture))');
             //document.getElementById("parkingImage").src = "../img" + imageNum + ".png";
             document.getElementById("parkingImage").src = "../" + imageFilename[imageNum]; //uncomment this when file upload finally works
@@ -61,6 +69,7 @@
             document.getElementById("parkTotal").value = "";
 
         }
+
         function dateChoiceFunction() {
             var spotNum = document.getElementById("bookDropdown").selectedIndex;
             var spotNumVal = document.getElementById("bookDropdown").value;
@@ -112,15 +121,6 @@
                     var pricePerHour = spotPrice * parkHour;
 
                     document.getElementById("parkTotal").value = pricePerHour;
-                    //document.getElementById("test").innerHTML = "";
-                } else {
-                    document.getElementById("parkUntil").value = "";
-                    document.getElementById("parkFrom").value = "";
-                    alert("Invalid time as it overlaps with an already booked time");
-                    document.getElementById("parkTotal").value = "";
-                    overlapCheckerNum = 0;
-                }
-                //document.getElementById("test").innerHTML = tabletest[0];//bookedDatabase[0];//overlapCheckerNum;//bookRange[0];////rangelist[rangelist.length-1]
             } else {
                 document.getElementById("parkUntil").value = "";
                 document.getElementById("parkTotal").value = "";
@@ -142,4 +142,5 @@
 
 
     </script>
+
 </body>

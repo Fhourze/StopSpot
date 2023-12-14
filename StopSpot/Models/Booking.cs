@@ -22,6 +22,7 @@ namespace StopSpot.Models
         [Display(Name = "Parking Until")]
         public DateTime ParkingUntil { get; set; }
 
+        [Required]
         public int Total { get; set; }
 
 
