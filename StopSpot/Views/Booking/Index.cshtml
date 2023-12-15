@@ -25,7 +25,7 @@
                     @Html.DropDownListFor(model => model.ParkingSpot, new SelectList(ViewBag.spots, "Id", "Name"),
                     new { @class = "booking-dropdown", @onchange = "imgChoiceFunction()", @id = "bookDropdown" })
                     @Html.Hidden("myVar", 0);
-
+                    
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -38,7 +38,7 @@
                         <label asp-for="ParkingUntil" class="form-label"></label>
                         <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL" id="parkUntil" onchange="dateChoiceFunction()">
                     </div>
-                </div>
+                
                 <div class="mb-3">
                     <div class="col">
                         <label asp-for="Total" class="form-label"></label>

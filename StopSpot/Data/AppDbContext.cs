@@ -12,10 +12,9 @@ namespace StopSpot.Data
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public AccountModel GetAccountByEmailAndPassword(string email, string password)
+        public AccountModel GetAccountByEmail(string email)
         {
-
-            return Accounts.FirstOrDefault(a => a.Email == email && a.Password == password);
+            return Accounts.FirstOrDefault(a => a.Email == email);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

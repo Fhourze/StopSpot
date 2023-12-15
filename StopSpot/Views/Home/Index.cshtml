@@ -40,7 +40,9 @@
             <div class="card text-center mb-3 card-custom" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-sign-out-alt"></i></h5>
-                <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Logout</a>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
                 </div>
             </div>
         </div>
