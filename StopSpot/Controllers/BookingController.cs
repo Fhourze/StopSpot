@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StopSpot.Data;
 using StopSpot.Models;
-
 namespace StopSpot.Controllers
 {
     public class BookingController : Controller
@@ -25,8 +24,7 @@ namespace StopSpot.Controllers
             ViewBag.spotsPicture = _dbContext.ParkingLists.Select(column => column.Picture).ToList();
             ViewBag.bookFrom = _dbContext.Bookings.Select(column => column.ParkingFrom).ToList();
             ViewBag.bookUntil = _dbContext.Bookings.Select(column => column.ParkingUntil).ToList();
-
-            //ViewBag.bookedSpots = _dbContext.Bookings.Select(column => column.ParkingSpot).ToList();
+            ViewBag.bookedSpots = _dbContext.Bookings.Select(column => column.ParkingSpot).ToList();
 
             return View();
         }
