@@ -1,124 +1,189 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StopSpot.Data;
 using StopSpot.Models;
+using StopSpot.Data;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
-namespace StopSpot.Controllers
+public class AccountController : Controller
 {
-    public class AccountController : Controller
+    private readonly AppDbContext _context;
+
+    public AccountController(AppDbContext context)
     {
-        private readonly AppDbContext _dbContext;
+        _context = context;
+    }
 
-        public AccountController(AppDbContext dbContext)
+    // GET: Register
+    public IActionResult Register()
+    {
+        return View();
+    }
+
+    // POST: Register
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Register(AccountModel account)
+    {
+        if (ModelState.IsValid)
         {
-            _dbContext = dbContext;
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(AccountModel loginInfo)
-        {
-            
-                var user = _dbContext.Accounts.FirstOrDefault(u => u.Email == loginInfo.Email && u.Password == loginInfo.Password);
-
-                if (user != null)
-                {
-                    // Successful login logic (e.g., setting up a session)
-                    ViewBag.SuccessMessage = "Login successful!";
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ViewBag.ErrorMessage = "Invalid email or password.";
-                    return View(loginInfo);
-                }
-            
-
-
-            return View(loginInfo);
-        }
-
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Register(AccountModel registerInfo)
-        {
-            if (ModelState.IsValid)
+            // Check if the email is already registered
+            if (_context.Accounts.Any(a => a.Email == account.Email))
             {
-                _dbContext.Accounts.Add(registerInfo);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Login");
+                ModelState.AddModelError("Email", "Email is already in use");
+                return View(account);
             }
 
-            return View(registerInfo);
-        }
-
-        public IActionResult Edit()
-        {
-            // Retrieve the last account from the database
-            var lastAccount = _dbContext.Accounts.OrderByDescending(a => a.AccountId).FirstOrDefault();
-
-            if (lastAccount == null)
-            {
-                ViewBag.ErrorMessage = "No accounts found.";
-                return View();
-            }
-
-            return View(lastAccount);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(AccountModel editedAccount)
-        {
-            if (ModelState.IsValid)
-            {
-                // Update the account in the database
-                _dbContext.Accounts.Update(editedAccount);
-                _dbContext.SaveChanges();
-                ViewBag.SuccessMessage = "Account updated successfully!";
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View(editedAccount);
-        }
-
-
-
-
-
-
-        public IActionResult Logout()
-        {
-            // Perform logout actions (if needed)
+            _context.Accounts.Add(account);
+            _context.SaveChanges();
             return RedirectToAction("Login");
         }
 
+        return View(account);
+    }
 
-        public IActionResult DeleteLastAccount()
+    // GET: Login
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    // POST: Login
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Login(Login login)
+    {
+        if (ModelState.IsValid)
         {
-            var lastAccount = _dbContext.Accounts.OrderByDescending(a => a.AccountId).FirstOrDefault();
+            var user = _context.GetAccountByEmail(login.Email);
 
-            if (lastAccount != null)
+            if (user != null && user.Password == login.Password)
             {
-                _dbContext.Accounts.Remove(lastAccount);
-                _dbContext.SaveChanges();
-                ViewBag.SuccessMessage = "Last account deleted successfully!";
+                var claims = new List<Claim>
+            {
+                new Claim("UserId", user.AccountId.ToString())
+                // Add more claims if needed for authorization or other purposes
+            };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties
+                {
+                    // Customize authentication properties if needed
+                    IsPersistent = true // Set to true for persistent cookies
+                };
+
+                HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties).Wait(); // Synchronously sign in the user
+
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.ErrorMessage = "No accounts found to delete.";
+                ViewBag.ErrorMessage = "Invalid credentials";
             }
-
-            return RedirectToAction("Login", "Account");
         }
+
+        return View(login);
     }
+
+
+    // Logout
+    public IActionResult Logout()
+    {
+        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait(); // Synchronously sign out the user
+        HttpContext.Session.Clear(); // Clear the session data if needed
+
+        return RedirectToAction("Login", "Account"); // Redirect to home or any other page after logout
+    }
+
+
+
+    public IActionResult Edit()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out var userId))
+            {
+                var user = _context.Accounts.FirstOrDefault(a => a.AccountId == userId);
+                if (user != null)
+                {
+                    return View(user);
+                }
+            }
+        }
+        return RedirectToAction("Login", "Account");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(AccountModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var userIdClaim = User.FindFirst("UserId");
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out var userId))
+            {
+                var existingUser = await _context.Accounts.FindAsync(userId);
+                if (existingUser != null)
+                {
+                    existingUser.FirstName = model.FirstName;
+                    existingUser.LastName = model.LastName;
+                    existingUser.Email = model.Email;
+                    existingUser.PhoneNumber = model.PhoneNumber;
+
+                    // Update the password only if the user has provided a new one
+                    if (!string.IsNullOrWhiteSpace(model.Password))
+                    {
+                        existingUser.Password = model.Password;
+                        // Here you should hash and store the updated password, similar to how it's done during registration
+                        
+                    }
+
+                    existingUser.AccountType = model.AccountType;
+
+                    _context.Entry(existingUser).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+        }
+        return View(model); // If ModelState is not valid or user doesn't exist, return to the edit view with the model
+    }
+
+
+
+    // Delete action
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var user = await _context.Accounts.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        _context.Accounts.Remove(user);
+        await _context.SaveChangesAsync();
+
+        // Log the user out after deletion (optional)
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return RedirectToAction("Login", "Account");
+    }
+
+
+
+
+
+
 }
