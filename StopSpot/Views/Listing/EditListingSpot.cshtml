@@ -19,64 +19,72 @@
         <div class="listing-container">
             <h1>Edit Parking Spot</h1>
 
-<form action="EditListingSpot" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Name">Name</label>
-        <input asp-for="Name" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="OwnerName">Owner Name</label>
-        <input asp-for="OwnerName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Picture">Picture</label>
-        <input asp-for="Picture" name="files" type="file" action="Index" class="form-control" />
-    </div>
+            <form action="EditListingSpot" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label asp-for="Vehicles">Vehicles</label> <br />
-                    @{
-                        List<SelectListItem> listItems = new List<SelectListItem>();
-                        listItems.Add(new SelectListItem
-            {
-                Text = "Motorbikes",
-                Value = "Motorbikes"
-            });
-                        listItems.Add(new SelectListItem
-            {
-                Text = "4 Wheelers",
-                Value = "4 Wheelers",
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
 
-            });
-                        listItems.Add(new SelectListItem
-            {
-                Text = "Trucks",
-                Value = "Trucks"
-            });
+                <div class="form-group">
+                    <label asp-for="OwnerName">Owner Name</label>
+                    <input asp-for="OwnerName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Picture">Picture</label>
+                    <input asp-for="Picture" name="files" type="file" action="Index" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address">Address</label>
+                    <input asp-for="Address" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Vehicles">Vehicles</label>
+                    <br />
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "Motorbikes", Value = "Motorbikes" },
+                    new SelectListItem { Text = "4 Wheelers", Value = "4 Wheelers" },
+                    new SelectListItem { Text = "Trucks", Value = "Trucks" }
+                    };
                     }
 
                     @Html.DropDownListFor(model => model.Vehicles, listItems, "-- Select Vehicle Type --")
                 </div>
-    <div class="form-group">
-        <label asp-for="PricePerHour">Price Per Hour</label>
-        <input asp-for="PricePerHour" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="OwnerNumber">Owner Number</label>
-        <input asp-for="OwnerNumber" class="form-control" />
-    </div>
-    <div class="form-group">
-                    <fieldset>
-                        <label asp-for="Availability">Availability</label>
-                        <br />
-                        @Html.RadioButtonFor(e => e.Availability, true, new { id = "available-true" })
-                        @Html.Label("available-true", "Available")
 
-                        @Html.RadioButtonFor(e => e.Availability, false, new { id = "available-false" })
-                        @Html.Label("available-false", "Occupied")
-                    </fieldset>
-                    <br />
+                <div class="form-group">
+                    <label asp-for="PricePerHour">Price Per Hour</label>
+                    <input asp-for="PricePerHour" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="OwnerNumber">Owner Number</label>
+                    <input asp-for="OwnerNumber" class="form-control" />
+                </div>
+
+                <fieldset>
+                    <legend>Availability</legend>
+                    <div class="form-check">
+                        @Html.RadioButtonFor(e => e.Availability, true, new { id = "available-true", @class = "form-check-input" })
+                        @Html.Label("available-true", "Available", new { @class = "form-check-label" })
+                    </div>
+                    <div class="form-check">
+                        @Html.RadioButtonFor(e => e.Availability, false, new { id = "available-false", @class = "form-check-input" })
+                        @Html.Label("available-false", "Occupied", new { @class = "form-check-label" })
+                    </div>
+                </fieldset>
+
+                <br />
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" onclick="history.back()" class="btn btn-secondary">Cancel</button>
+            </form>
+        </div>
     </div>
-    <button asp-action="EditListingSpot">Save Changes</button>
-    <button type="button" onclick="history.back()" class="btn">Cancel</button>
-</form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html>

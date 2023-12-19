@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-image: url('../img/eclipse.jpg');
+    background: url('../img/blackground.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
