@@ -1,11 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model ListingModel;
+﻿@model ListingModel;
 
-<h1>Edit Parking Spot</h1>
+@{
+    ViewBag.Title = "Edit Listing Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/listing.css">
+</head>
+<body>
+    <div class="overlay"></div>
+    <div id="listing-page" class="center-content">
+        <div class="listing-container">
+            <h1>Edit Parking Spot</h1>
 
 <form action="EditListingSpot" method="post" enctype="multipart/form-data">
     <div class="form-group">
@@ -20,34 +32,30 @@
         <label asp-for="Picture">Picture</label>
         <input asp-for="Picture" name="files" type="file" action="Index" class="form-control" />
     </div>
-    <div class="form-group">
-        <label asp-for="Address">Address</label>
-        <input asp-for="Address" class="form-control" />
-    </div>
-    <div class="form-group"><br />
-        <label asp-for="Vehicles">Vehicles</label>
-        @{
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            listItems.Add(new SelectListItem
+                <div class="form-group">
+                    <label asp-for="Vehicles">Vehicles</label> <br />
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
             {
                 Text = "Motorbikes",
                 Value = "Motorbikes"
             });
-            listItems.Add(new SelectListItem
+                        listItems.Add(new SelectListItem
             {
                 Text = "4 Wheelers",
                 Value = "4 Wheelers",
 
             });
-            listItems.Add(new SelectListItem
+                        listItems.Add(new SelectListItem
             {
                 Text = "Trucks",
                 Value = "Trucks"
             });
-        }
+                    }
 
-        @Html.DropDownListFor(model => model.Vehicles, listItems, "-- Select Vehicle Type --")
-    </div>
+                    @Html.DropDownListFor(model => model.Vehicles, listItems, "-- Select Vehicle Type --")
+                </div>
     <div class="form-group">
         <label asp-for="PricePerHour">Price Per Hour</label>
         <input asp-for="PricePerHour" class="form-control" />
@@ -56,16 +64,19 @@
         <label asp-for="OwnerNumber">Owner Number</label>
         <input asp-for="OwnerNumber" class="form-control" />
     </div>
-    <fieldset>
-        <label asp-for="Availability">Availability</label>
-        <br />
-        @Html.RadioButtonFor(e => e.Availability, true, new { id = "available-true" })
-        @Html.Label("available-true", "Available")
+    <div class="form-group">
+                    <fieldset>
+                        <label asp-for="Availability">Availability</label>
+                        <br />
+                        @Html.RadioButtonFor(e => e.Availability, true, new { id = "available-true" })
+                        @Html.Label("available-true", "Available")
 
-        @Html.RadioButtonFor(e => e.Availability, false, new { id = "available-false" })
-        @Html.Label("available-false", "Occupied")
-    </fieldset>
-    <br />
+                        @Html.RadioButtonFor(e => e.Availability, false, new { id = "available-false" })
+                        @Html.Label("available-false", "Occupied")
+                    </fieldset>
+                    <br />
+    </div>
     <button asp-action="EditListingSpot">Save Changes</button>
     <button type="button" onclick="history.back()" class="btn">Cancel</button>
 </form>
+</body>
