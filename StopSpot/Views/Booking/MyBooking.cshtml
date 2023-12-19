@@ -1,0 +1,71 @@
+﻿@using static StopSpot.Models.Booking
+@using StopSpot.Models
+@using System.Text.RegularExpressions
+
+
+@{
+    ViewData["Title"] = "MyBooking";
+}
+
+
+<!DOCTYPE html>
+<body>
+    <div class="container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+
+                    <th scope="col">Parking Spot</th>
+                    <th scope="col">Parking From</th>
+                    <th scope="col">Parking Until</th>
+                    <th scope="col">Address</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @functions 
+                {
+                    public string FindParkingName(int id)
+                    {
+                        return (from item in ViewBag.spots as SelectList
+                                where item.Value == id.ToString()
+                                select item.Text).FirstOrDefault();
+                    }
+                }
+                @{
+
+                    var yaur = Json.Serialize(ViewBag.spots);
+
+
+                    foreach (var bookingModel in Model)
+                    {
+                        var uIdString = Html.Raw(Json.Serialize(ViewBag.userid));
+                        var resultString = Regex.Match(uIdString.ToString(), @"\d+").Value;
+                        var userId = Int32.Parse(resultString);
+
+                        if (bookingModel.UserParking == userId)
+                        {
+                            var serializedSpots = Html.Raw(Json.Serialize(ViewBag.spots));
+                            //var spotsArray = JsonConvert.DeserializeObject<IEnumerable<String>>(serializedSpots);
+                            var spotsArray = ViewBag.spots as List<String>;
+                            var pSpot = Int32.Parse(bookingModel.ParkingSpot);
+
+                            <tr>
+                                <td>@spotsArray[pSpot - 1]</td>
+                                <td>@bookingModel.ParkingFrom</td>
+                                <td>@bookingModel.ParkingUntil</td>
+                                <td>bookingModel.Address</td>
+                            </tr>
+                        }
+                    }
+
+                }
+
+
+            </tbody>
+        </table>
+        <a asp-controller="Booking" asp-action="Index">
+            <button class="btn btn-danger" id="bBooking">Add Booking</button>
+        </a>
+    </div>
+</body>
