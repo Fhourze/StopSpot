@@ -8,6 +8,9 @@
     <h1>Booking</h1>
     <div class="row">
         <div class="col">
+            <a asp-controller="Booking" asp-action="MyBooking" id="aButton">
+                My Bookings
+            </a>
             <form asp-action="Index" method="post">
                 <div asp-validation-summary="All"></div>
                 <!--<div class="mb-3">
@@ -46,34 +49,36 @@
                 </div>
                 <button type="submit" class="btn btn-danger" id="bBooking">PARK IT!</button>
             </form>
+
         </div>
         <div class="col">
             <div class="row mb-3">
                 <img src="../img/ParkingPlaceholder.png" alt="Parking Spot Picture" id="parkingImage">
+                <p id="pAddress"></p>
                 <p id="test"></p>
-                <a asp-controller="Booking" asp-action="MyBooking">
-                    My Bookings
-                </a>
+
             </div>
         </div>
     </div>
     <script>
 
-        //var userIdString = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.userid))');
-        //var userId = userIdString.substr(-1)
+        var userIdString = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.userid))');
+        var userId = userIdString.substr(-1)
 
         //document.getElementById("test").innerHTML = userId;
-        //document.getElementById("parkUser").value = userId;
+        document.getElementById("parkUser").value = userId;
 
         function imgChoiceFunction() {
             var imageNum = document.getElementById("bookDropdown").selectedIndex;
             var imageFilename = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPicture))');
+            var address = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsAddress))');
 
             //document.getElementById("parkingImage").src = "../img" + imageNum + ".png";
             document.getElementById("parkingImage").src = "../" + imageFilename[imageNum]; //uncomment this when file upload finally works
             document.getElementById("parkFrom").value = "";
             document.getElementById("parkUntil").value = "";
             document.getElementById("parkTotal").value = "";
+            document.getElementById("pAddress").innerHTML = address[imageNum];
 
         }
         function dateChoiceFunction() {

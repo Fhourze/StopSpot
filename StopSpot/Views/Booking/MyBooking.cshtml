@@ -23,15 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @functions 
-                {
-                    public string FindParkingName(int id)
-                    {
-                        return (from item in ViewBag.spots as SelectList
-                                where item.Value == id.ToString()
-                                select item.Text).FirstOrDefault();
-                    }
-                }
+
                 @{
 
                     var yaur = Json.Serialize(ViewBag.spots);
@@ -48,13 +40,15 @@
                             var serializedSpots = Html.Raw(Json.Serialize(ViewBag.spots));
                             //var spotsArray = JsonConvert.DeserializeObject<IEnumerable<String>>(serializedSpots);
                             var spotsArray = ViewBag.spots as List<String>;
+                            var spotsAddr = ViewBag.spotsAddress as List<String>;
                             var pSpot = Int32.Parse(bookingModel.ParkingSpot);
+
 
                             <tr>
                                 <td>@spotsArray[pSpot - 1]</td>
                                 <td>@bookingModel.ParkingFrom</td>
                                 <td>@bookingModel.ParkingUntil</td>
-                                <td>bookingModel.Address</td>
+                                <td>@spotsAddr[pSpot - 1]</td>
                             </tr>
                         }
                     }
