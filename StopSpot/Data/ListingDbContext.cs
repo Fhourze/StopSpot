@@ -22,10 +22,10 @@ namespace StopSpot.Data
             Id = 1,
             Name = "Test",
             OwnerName = "Test",
+            Picture = "Listing/Images/",
             Vehicles = "Test",
             PricePerHour = "Test",
             OwnerNumber = "Test",
-            Availability = "true"
             }
             );
 

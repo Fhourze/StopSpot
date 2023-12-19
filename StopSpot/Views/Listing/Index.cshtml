@@ -20,6 +20,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">OwnerName</th>
                 <th scope="col">Picture</th>
+                <th scope="col">Address</th>
                 <th scope="col">Vehicles</th>
                 <th scope="col">Price Per Hour</th>
                 <th scope="col">Owner Number</th>
@@ -35,11 +36,13 @@
                     <td> @listingModel.Name</td>
                     <td>@listingModel.OwnerName</td>
                     <td><img src="/@listingModel.Picture" class="img-thumbnail" /></td>
+                    <td>@listingModel.Address</td>
                     <td>@listingModel.Vehicles</td>
                     <td>@listingModel.PricePerHour</td>
                     <td>@listingModel.OwnerNumber</td>
                     <td>@listingModel.Availability</td>
                     <td>
+                        <a asp-controller="Listing" asp-action="EditListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="edit">Edit</i></a>
                         <a asp-controller="Listing" asp-action="DeleteListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete">Delete</i></a>
                     </td>
                 </tr>
