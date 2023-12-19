@@ -67,7 +67,7 @@ namespace StopSpot.Controllers
             {
                 string folder = "Listing/Images/";
                 string serverFolder = Path.Combine(_environment.WebRootPath, folder);
-                string uniqueFileName = Guid.NewGuid().ToString() + "1" + listingModel.UploadedPhoto.FileName;
+                string uniqueFileName = Guid.NewGuid().ToString() + "1" + listingModel.UploadedPhoto.FileName.ToString();
                 string filePath = Path.Combine(serverFolder, uniqueFileName);
                 using var fileStream = new FileStream(filePath, FileMode.Create);
                 {
