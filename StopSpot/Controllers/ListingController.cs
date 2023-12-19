@@ -69,23 +69,26 @@ namespace StopSpot.Controllers
                 {
                     string folder = "Listing/Images/";
                     string serverFolder = Path.Combine(_environment.WebRootPath, folder);
-                    string uniqueFileName = Guid.NewGuid().ToString() + "__" + listingModel.UploadedPhoto.FileName;
+                    string uniqueFileName = Guid.NewGuid().ToString() + "__" + listingModelChange.UploadedPhoto.FileName;
                     string filePath = Path.Combine(serverFolder, uniqueFileName);
                     using var fileStream = new FileStream(filePath, FileMode.Create);
                     {
-                        listingModel.UploadedPhoto.CopyTo(fileStream);
+                        listingModelChange.UploadedPhoto.CopyTo(fileStream);
                     }
                     listingModelChange.Picture = folder + uniqueFileName;
                 }
 
                 listingModel.Name = listingModelChange.Name;
                 listingModel.OwnerName = listingModelChange.OwnerName;
+                listingModel.UploadedPhoto = listingModelChange.UploadedPhoto;
                 listingModel.Picture = listingModelChange.Picture;
                 listingModel.Address = listingModelChange.Address;
                 listingModel.Vehicles = listingModelChange.Vehicles;
                 listingModel.PricePerHour = listingModelChange.PricePerHour;
                 listingModel.OwnerNumber = listingModelChange.OwnerNumber;
                 listingModel.Availability = listingModelChange.Availability;
+                _listdbContext.ParkingLists.Remove(listingModel);
+                _listdbContext.ParkingLists.Add(listingModelChange);
                 _listdbContext.SaveChanges();
 
             }
