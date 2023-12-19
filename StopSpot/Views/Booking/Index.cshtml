@@ -14,6 +14,11 @@
                     <label asp-for="BookingId" class="form-label">Booking ID</label>
                     <input asp-for="BookingId" class="form-control" />
                 </div>-->
+                <div class="mb-3">
+                    <div class="col">
+                        <input asp-for="UserParking" type="hidden" class="form-control" id="parkUser">
+                    </div>
+                </div>
                 <div class="row mb-3">
                     <!--<label asp-for="ParkingSpot" class="form-label"></label>-->
                     <!--<select asp-for="ParkingSpot" class="form-select" asp-items="Html.GetEnumSelectList<Spots>()" aria-label="Spots"></select>-->
@@ -32,7 +37,7 @@
                         <label asp-for="ParkingUntil" class="form-label"></label>
                         <input asp-for="ParkingUntil" class="form-control" placeholder="PARKING UNTIL" id="parkUntil" onchange="dateChoiceFunction()">
                     </div>
-                
+                </div>
                 <div class="mb-3">
                     <div class="col">
                         <label asp-for="Total" class="form-label"></label>
@@ -46,11 +51,20 @@
             <div class="row mb-3">
                 <img src="../img/ParkingPlaceholder.png" alt="Parking Spot Picture" id="parkingImage">
                 <p id="test"></p>
-
+                <a asp-controller="Booking" asp-action="MyBooking">
+                    My Bookings
+                </a>
             </div>
         </div>
     </div>
     <script>
+
+        //var userIdString = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.userid))');
+        //var userId = userIdString.substr(-1)
+
+        //document.getElementById("test").innerHTML = userId;
+        //document.getElementById("parkUser").value = userId;
+
         function imgChoiceFunction() {
             var imageNum = document.getElementById("bookDropdown").selectedIndex;
             var imageFilename = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.spotsPicture))');
@@ -124,7 +138,7 @@
 
                     document.getElementById("parkTotal").value = pricePerHour;
                     
-                    document.getElementById("test").innerHTML = specificSpot.length;
+                    //document.getElementById("test").innerHTML = specificSpot.length;
                 } else {
                     document.getElementById("parkUntil").value = "";
                     document.getElementById("parkFrom").value = "";
