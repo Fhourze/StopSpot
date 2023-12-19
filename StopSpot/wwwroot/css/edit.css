@@ -9,14 +9,14 @@ body {
     margin: 0;
 }
 
-#register-page {
+#edit-page {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-.register-container {
+.edit-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -32,15 +32,15 @@ body {
     margin: auto;
 }
 
-.form {
+.form-group {
     max-width: 300px;
     margin: 0 auto;
 }
 
-.register-container button {
-    background-color: #EFEFEF;
-    border-color: #000000;
-    color: #000000;
+.edit-container button {
+    background-color: #242024;
+    border-color: #E30220;
+    color: #E30220;
     padding: 10px;
     font-weight: bold;
     border: none;
@@ -50,8 +50,15 @@ body {
     margin: auto;
     display: block;
     font-size: 16px;
+    margin-bottom: 20px;
 }
 
-.register-container button:hover {
-    background-color: #CCC;
+.edit-container button:hover {
+    background-color: #777377;
+}
+
+.btn-danger {
+    /* Style danger button */
+    background-color: #dc3545;
+    color: #fff;
 }
