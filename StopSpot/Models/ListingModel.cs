@@ -10,10 +10,13 @@ namespace StopSpot.Models
         public int? Id { get; set; }
         public string? Name { get; set; }
         public string? OwnerName { get; set; }
+        public string? Address { get; set; }
         public string? Vehicles { get; set; }
         public string? PricePerHour { get; set; }
         public string? OwnerNumber { get; set; }
         public string? Availability { get; set; }
+
+        public string[] Available = new[] { "True" , "False" };
 
         [NotMapped]
         public IFormFile? UploadedPhoto { get; set; }

@@ -25,7 +25,6 @@ namespace StopSpot.Data
             Vehicles = "Test",
             PricePerHour = "Test",
             OwnerNumber = "Test",
-            Availability = "true"
             }
             );
 

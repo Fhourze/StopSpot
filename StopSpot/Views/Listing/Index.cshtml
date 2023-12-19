@@ -9,15 +9,18 @@
 }
 @model IEnumerable<ListingModel>;
 
-
+<link rel="stylesheet" href="~/css/StyleSheet1.css" asp-append-version="true" />
+<!DOCTYPE html>
+<body class="ListingBody">
     <div class="container-fluid">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                <th scope="col">Id</th>
+                
                 <th scope="col">Name</th>
                 <th scope="col">OwnerName</th>
                 <th scope="col">Picture</th>
+                <th scope="col">Address</th>
                 <th scope="col">Vehicles</th>
                 <th scope="col">Price Per Hour</th>
                 <th scope="col">Owner Number</th>
@@ -28,16 +31,18 @@
             <tbody>
                 @foreach (var listingModel in Model)
             {
-                <tr style="border: 4px solid green;" : "border: 4px solid red;">
-                    <td>@listingModel.Id</td>
+                <tr style="border: 4px solid white;" : "border: 4px solid red;">
+                    
                     <td> @listingModel.Name</td>
                     <td>@listingModel.OwnerName</td>
                     <td><img src="/@listingModel.Picture" class="img-thumbnail" /></td>
+                    <td>@listingModel.Address</td>
                     <td>@listingModel.Vehicles</td>
                     <td>@listingModel.PricePerHour</td>
                     <td>@listingModel.OwnerNumber</td>
                     <td>@listingModel.Availability</td>
                     <td>
+                        <a asp-controller="Listing" asp-action="EditListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="edit">Edit</i></a>
                         <a asp-controller="Listing" asp-action="DeleteListingSpot" asp-route-id="@listingModel.Id" method="post"><i class="bi bi-trash" style="margin-right: 10px;" data-toggle="tooltip" data-placement="top" title="delete">Delete</i></a>
                     </td>
                 </tr>
@@ -45,6 +50,7 @@
             </tbody>
         </table>
     <a asp-controller="Listing" asp-action="AddListing">
-        <button class="btn btn-outline-primary bi bi-plus-circle" style="margin-left: 12px; margin-bottom: 10px;"> Add new Parking Spot</button>
+        <button class="btn btn-danger bi bi-plus-circle" id="bListing" style="margin-left: 12px; margin-bottom: 10px;"> Add new Parking Spot</button>
     </a>
     </div>
+</body>

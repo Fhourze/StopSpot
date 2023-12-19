@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StopSpot.Data;
 using StopSpot.Models;
+using System.Xml.Linq;
 
 
 
@@ -10,9 +11,9 @@ namespace StopSpot.Controllers
 {
     public class ListingController : Controller
     {
-        private readonly ListingDbContext _listdbContext;
+        private readonly AppDbContext _listdbContext;
         private readonly IWebHostEnvironment _environment;
-        public ListingController(ListingDbContext ListdbContext, IWebHostEnvironment environment)
+        public ListingController(AppDbContext ListdbContext, IWebHostEnvironment environment)
         {
             _listdbContext = ListdbContext;
             _environment = environment;
@@ -64,19 +65,23 @@ namespace StopSpot.Controllers
             ListingModel? listingModel = _listdbContext.ParkingLists.FirstOrDefault(st => st.Id == listingModelChange.Id);
             if (listingModel != null)
             {
-                string folder = "Listing/Images/";
-                string serverFolder = Path.Combine(_environment.WebRootPath, folder);
-                string uniqueFileName = Guid.NewGuid().ToString() + "___" + listingModelChange.UploadedPhoto.FileName;
-                string filePath = Path.Combine(serverFolder, uniqueFileName);
-                using var fileStream = new FileStream(filePath, FileMode.Create);
+            if (listingModel.UploadedPhoto != null)
                 {
-                    listingModelChange.UploadedPhoto.CopyTo(fileStream);
+                    string folder = "Listing/Images/";
+                    string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+                    string uniqueFileName = Guid.NewGuid().ToString() + "__" + listingModel.UploadedPhoto.FileName;
+                    string filePath = Path.Combine(serverFolder, uniqueFileName);
+                    using var fileStream = new FileStream(filePath, FileMode.Create);
+                    {
+                        listingModel.UploadedPhoto.CopyTo(fileStream);
+                    }
+                    listingModelChange.Picture = folder + uniqueFileName;
                 }
-                listingModelChange.Picture = folder + uniqueFileName;
 
                 listingModel.Name = listingModelChange.Name;
                 listingModel.OwnerName = listingModelChange.OwnerName;
                 listingModel.Picture = listingModelChange.Picture;
+                listingModel.Address = listingModelChange.Address;
                 listingModel.Vehicles = listingModelChange.Vehicles;
                 listingModel.PricePerHour = listingModelChange.PricePerHour;
                 listingModel.OwnerNumber = listingModelChange.OwnerNumber;
