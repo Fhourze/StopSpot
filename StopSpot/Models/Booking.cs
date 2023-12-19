@@ -10,6 +10,9 @@ namespace StopSpot.Models
         public int BookingId { get; set; }
 
         [Required]
+        public int UserParking { get; set; }
+
+        [Required]
         [Display(Name = "Parking Spot")]
         public string ParkingSpot { get; set; }
 
