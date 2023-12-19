@@ -65,18 +65,22 @@ namespace StopSpot.Controllers
             ListingModel? listingModel = _listdbContext.ParkingLists.FirstOrDefault(st => st.Id == listingModelChange.Id);
             if (listingModel != null)
             {
-                string folder = "Listing/Images/";
-                string serverFolder = Path.Combine(_environment.WebRootPath, folder);
-                string uniqueFileName = Guid.NewGuid().ToString() + "1" + listingModel.UploadedPhoto.FileName.ToString();
-                string filePath = Path.Combine(serverFolder, uniqueFileName);
-                using var fileStream = new FileStream(filePath, FileMode.Create);
+            if (listingModel.UploadedPhoto != null)
                 {
-                    listingModel.UploadedPhoto.CopyTo(fileStream);
+                    string folder = "Listing/Images/";
+                    string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+                    string uniqueFileName = Guid.NewGuid().ToString() + "__" + listingModel.UploadedPhoto.FileName;
+                    string filePath = Path.Combine(serverFolder, uniqueFileName);
+                    using var fileStream = new FileStream(filePath, FileMode.Create);
+                    {
+                        listingModel.UploadedPhoto.CopyTo(fileStream);
+                    }
+                    listingModelChange.Picture = folder + uniqueFileName;
                 }
-                listingModel.Picture = folder + uniqueFileName;
 
                 listingModel.Name = listingModelChange.Name;
                 listingModel.OwnerName = listingModelChange.OwnerName;
+                listingModel.Picture = listingModelChange.Picture;
                 listingModel.Address = listingModelChange.Address;
                 listingModel.Vehicles = listingModelChange.Vehicles;
                 listingModel.PricePerHour = listingModelChange.PricePerHour;
