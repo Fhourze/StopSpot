@@ -13,10 +13,32 @@ namespace StopSpot.Controllers
             _logger = logger;
         }
 
+        // GET: Index
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var accountTypeClaim = User.FindFirst("AccountType")?.Value;
+                if (accountTypeClaim != null)
+                {
+                    if (accountTypeClaim == "Driver")
+                    {
+                        return RedirectToAction("IndexDriver");
+                    }
+                }
+            }
+
+            // Default redirect if not a Driver or other conditions
             return View();
         }
+
+        // Additional action for Driver
+        public IActionResult IndexDriver()
+        {
+            // Logic for Driver view
+            return View("IndexDriver"); // Replace "IndexDriver" with the actual name of the Driver view
+        }
+
 
         public IActionResult Privacy()
         {
