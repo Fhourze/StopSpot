@@ -19,7 +19,7 @@ namespace StopSpot.Data
             modelBuilder.Entity<ListingModel>().HasData(
             new ListingModel()
             {
-            Id = 1,
+            Id = 0,
             Name = "Test",
             OwnerName = "Test",
             Vehicles = "Test",
