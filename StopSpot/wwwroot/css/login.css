@@ -1,8 +1,8 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body {
+.loginbody {
     font-family: 'Roboto', sans-serif;
-    background: url('../img/blackground.jpg') no-repeat center center fixed;
+    background: url('../img/blackground.jpg') no-repeat center center fixed !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

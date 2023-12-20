@@ -25,18 +25,20 @@
                    
                     
                     
+
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Booking")">Book</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Listing")">List</a>
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
                         </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Edit", "Account")">Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Login", "Account")">Logout</a>
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="btn btn-primary" style="background-color: transparent; border: none;">Logout</button>
+                        </form>
                     </li>
+
+
                     
 
                 </div>

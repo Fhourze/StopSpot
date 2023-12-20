@@ -64,7 +64,9 @@ public class AccountController : Controller
             {
                 var claims = new List<Claim>
                     {
-                        new Claim("UserId", user.AccountId.ToString())
+                        new Claim("UserId", user.AccountId.ToString()),
+                        new Claim("AccountType", user.AccountType),
+                        
                         // Add more claims if needed for authorization or other purposes
                     };
 
@@ -180,6 +182,10 @@ public class AccountController : Controller
 
         return RedirectToAction("Login", "Account");
     }
+
+
+
+
 
 
 

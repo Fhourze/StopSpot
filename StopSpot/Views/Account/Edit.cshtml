@@ -3,6 +3,19 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<div class="overlay"></div>
+<div id="register-page" class="center-content">
+    <div class="register-container">
+
 
 <h1>Edit User Information</h1>
 
@@ -33,10 +46,10 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control"/>
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
+                <input type="hidden" asp-for="Password" />
+        @* <label asp-for="Password"></label>
+                <span asp-validation-for="Password" class="text-danger"></span> *@
+            </div>
 
     <div class="form-group">
         <input type="hidden" asp-for="AccountType" />
@@ -54,3 +67,20 @@
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this account?')">Delete Account</button>
 }
+
+        </div>
+        </div>
+
+
+
+<!-- JavaScript for toggling password visibility -->
+@* @section scripts {
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('passwordInput');
+            var showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
+
+            passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+        }
+    </script>
+} *@

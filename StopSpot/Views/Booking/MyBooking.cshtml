@@ -9,6 +9,14 @@
 
 
 <!DOCTYPE html>
+<head>
+    <style>
+        /* CSS to set text color inside the table and table cells to white */
+        table, th, td {
+            color: white;
+        }
+    </style>
+</head>
 <body>
     <div class="container-fluid">
         <table class="table table-bordered">
@@ -37,12 +45,12 @@
 
                         if (bookingModel.UserParking == userId)
                         {
-                            var serializedSpots = Html.Raw(Json.Serialize(ViewBag.spots));
+                            //var serializedSpots = Html.Raw(Json.Serialize(ViewBag.spots));
                             //var spotsArray = JsonConvert.DeserializeObject<IEnumerable<String>>(serializedSpots);
                             var spotsArray = ViewBag.spots as List<String>;
                             var spotsAddr = ViewBag.spotsAddress as List<String>;
                             var pSpot = Int32.Parse(bookingModel.ParkingSpot);
-
+                            
 
                             <tr>
                                 <td>@spotsArray[pSpot - 1]</td>

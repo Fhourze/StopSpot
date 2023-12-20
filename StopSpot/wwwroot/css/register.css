@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: url('../img/blackground.jpg') no-repeat center center fixed;
+    background: url('../img/blackground.jpg') no-repeat center center fixed !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

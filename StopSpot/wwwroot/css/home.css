@@ -7,13 +7,21 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     margin: 0;
+
+
 }
+
+.gumitnaka {
+    display: flex;
+    
+}
+
 
 .d-flex {
     width: 100%;
     height: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     font-family: "Lucida Console", "Courier New", monospace;
 }
