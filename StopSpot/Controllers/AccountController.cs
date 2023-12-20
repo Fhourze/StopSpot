@@ -63,19 +63,19 @@ public class AccountController : Controller
             if (user != null && user.Password == login.Password)
             {
                 var claims = new List<Claim>
-            {
-                new Claim("UserId", user.AccountId.ToString())
-                // Add more claims if needed for authorization or other purposes
-            };
+                    {
+                        new Claim("UserId", user.AccountId.ToString())
+                        // Add more claims if needed for authorization or other purposes
+                    };
 
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
-                {
-                    // Customize authentication properties if needed
-                    IsPersistent = true // Set to true for persistent cookies
-                };
+                    {
+                        // Customize authentication properties if needed
+                        IsPersistent = true // Set to true for persistent cookies
+                    };
 
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,

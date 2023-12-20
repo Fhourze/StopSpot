@@ -77,10 +77,38 @@ h1 {
     width: 500px;
 }
 
-#test{
-    color: aliceblue;
+#pAddress {
+    font-size: 28px;
+    color: #E30220;
+    text-align: center;
+    background-color: #242024;
+    border-radius: 5px;
+    margin-top: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #BF0000 !important;
 }
 
+#aButton:link, #aButton:visited {
+    border: #242024;
+    color: #ffffff !important;
+    background: #BF0000;
+    padding: 7px 64px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+#aButton:hover, #aButton:active {
+    background-color: #242024;
+    color: #E30220 !important;
+    border-color: #242024;
+}
 /* end of booking page-specific css */
 
 

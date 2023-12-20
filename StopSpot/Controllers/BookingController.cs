@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StopSpot.Data;
 using StopSpot.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 namespace StopSpot.Controllers
 {
     public class BookingController : Controller
@@ -19,12 +22,17 @@ namespace StopSpot.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.spots = _dbContext.ParkingLists.ToList();
-            ViewBag.spotsPrice = _dbContext.ParkingLists.Select(column => column.PricePerHour).ToList();
-            ViewBag.spotsPicture = _dbContext.ParkingLists.Select(column => column.Picture).ToList();
+            ViewBag.spots = _dbContext.ParkingLists.Where(a => a.Availability == "True").ToList();
+            ViewBag.spotsPrice = _dbContext.ParkingLists.Where(a => a.Availability == "True").Select(column => column.PricePerHour).ToList();
+            ViewBag.spotsPicture = _dbContext.ParkingLists.Where(a => a.Availability == "True").Select(column => column.Picture).ToList();
+            ViewBag.spotsAddress = _dbContext.ParkingLists.Where(a => a.Availability == "True").Select(column => column.Address).ToList();
             ViewBag.bookFrom = _dbContext.Bookings.Select(column => column.ParkingFrom).ToList();
             ViewBag.bookUntil = _dbContext.Bookings.Select(column => column.ParkingUntil).ToList();
             ViewBag.bookedSpots = _dbContext.Bookings.Select(column => column.ParkingSpot).ToList();
+
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            ViewBag.userid = claims.FirstOrDefault().ToString();
 
             return View();
         }
@@ -65,6 +73,18 @@ namespace StopSpot.Controllers
 
         }
 
-    }
+        [HttpGet]
+        public IActionResult MyBooking()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            ViewBag.userid = claims.FirstOrDefault().ToString();
 
+            ViewBag.spots = _dbContext.ParkingLists.Select(column => column.Name).ToList();
+            ViewBag.spotsAddress = _dbContext.ParkingLists.Select(column => column.Address).ToList();
+            return View(_dbContext.Bookings);
+        }
+
+
+    }
 }
