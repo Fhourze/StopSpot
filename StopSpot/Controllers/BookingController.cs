@@ -81,6 +81,8 @@ namespace StopSpot.Controllers
             ViewBag.userid = claims.FirstOrDefault().ToString();
 
             ViewBag.spots = _dbContext.ParkingLists.Select(column => column.Name).ToList();
+            var nullableIntList = _dbContext.ParkingLists.Select(column => column.Id).ToList();
+            ViewBag.spotsNum = nullableIntList.Select(id => id?.ToString() ?? "").ToList();
             ViewBag.spotsAddress = _dbContext.ParkingLists.Select(column => column.Address).ToList();
             return View(_dbContext.Bookings);
         }
